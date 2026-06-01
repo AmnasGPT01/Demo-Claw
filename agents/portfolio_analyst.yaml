@@ -1,0 +1,25 @@
+# Agent spec: portfolio-analyst
+# A factory reads this and materializes a runnable agent.
+
+name: portfolio-analyst
+version: 0.1.0
+role: |
+  Compute and explain portfolio risk/return metrics from a price series.
+model: stub   # stub = no LLM; deterministic tool execution for v1
+description: |
+  Given a ticker and a date range, fetch prices, compute returns,
+  volatility, Sharpe ratio, and max drawdown, then summarize.
+
+# Tools the agent may call. Resolved by name from the tool registry.
+tools:
+  - get_prices
+  - compute_returns
+  - volatility
+  - sharpe_ratio
+  - max_drawdown
+
+# Hard guardrails. Runtime enforces these regardless of agent output.
+constraints:
+  max_steps: 10
+  timeout_seconds: 30
+  require_disclosure: true   # agent must report all metrics it computed
