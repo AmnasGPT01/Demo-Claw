@@ -7,17 +7,29 @@ An experimental **agent factory** for building finance AI agents. You describe a
 - **`agents/`** — declarative agent specs (YAML)
 - **`tools/`** — pure-function tools the agents can call (deterministic finance math for v1)
 - **`factory/`** — the factory itself: registry, builder, runtime, trace
-- **`run_demo.py`** — one-command end-to-end demo
+- **`run_demo.py`** — terminal end-to-end demo
+- **`app.py`** — Streamlit web UI (form-based, no commands)
 - **`traces/`** — append-only audit logs (created on first run)
 
 ## Quick start
+
+### Option A — Web UI (recommended for non-developers)
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Opens a browser tab. Type a ticker, pick dates, click **Analyze**. You get metrics and a price chart.
+
+### Option B — Terminal
 
 ```bash
 pip install -r requirements.txt
 python run_demo.py
 ```
 
-Expected output: the `portfolio-analyst` agent loads, pulls synthetic prices for AAPL across 2024, computes volatility, Sharpe ratio, and max drawdown, and writes a trace to `traces/portfolio_analyst.jsonl`.
+Prints the same analysis to the terminal. Writes a trace to `traces/portfolio_analyst.jsonl`.
 
 ## How it works
 
@@ -71,7 +83,8 @@ Demo-Claw/
 │   ├── runtime.py                # Agent + task → result
 │   ├── trace.py                  # append-only audit log
 │   └── tool_registry.py          # catalog of available tools
-├── run_demo.py                   # entry point
+├── run_demo.py                   # terminal entry point
+├── app.py                        # streamlit web UI
 ├── requirements.txt
 └── README.md
 ```
